@@ -2,8 +2,10 @@ library(openxlsx)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(gridExtra)
 library(scales)
 library(prophet)
+
 
 # load data
 cel <- as_tibble(read.xlsx("CEL.xlsx", sheet = 1))
@@ -100,13 +102,22 @@ p3 <- plot(m3, forecast3) +
   xlab("Date") +
   ylab("Predicted amount of CEL outside") +
   theme_gray(base_size = 14)
-p3
+print(p3)
 
 # plot the forecast of CEL price
 p4 <- plot(m4, forecast4)   +
   scale_y_log10() + 
   xlab("Date") +
   ylab("Predicted amount of CEL outside") +
-  annotation_logticks(sides = "l")
+  annotation_logticks(sides = "l") +
   theme_gray(base_size = 14)
-p4
+print(p4)
+
+# plot the correlation of CEL price and CEL_per_USER
+cel %>% 
+  filter(name %in% c("Price", "CEL_per_USER", "USERS")) %>% 
+  pivot_wider() %>% filter(USERS > 50000) %>%
+  ggplot(aes(x = CEL_per_USER, y = Price)) + 
+  geom_point() +  scale_x_log10() + scale_y_log10() +
+  annotation_logticks(sides = "bl") +
+  theme_gray(base_size = 14)
