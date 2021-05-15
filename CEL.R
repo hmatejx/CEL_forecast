@@ -113,15 +113,15 @@ p1 <- plot(m1, forecast1) +
   ylab("Predicted number of TOTAL USERS") +
   geom_text(x = max(forecast1$ds) - 0.05*diff(range(forecast1$ds)), 
             y = log10(forecast1$yhat[nrow(forecast1)]), 
-            label = paste0("M: ", round(forecast1$yhat[nrow(forecast1)], 0)),
+            label = paste0("M: ", round(forecast1$yhat[nrow(forecast1)], -4)),
             check_overlap = T, size = 4, hjust = 1, fontface = "bold") +
   geom_text(x = max(forecast1$ds) - 0.05*diff(range(forecast1$ds)), 
             y = log10(forecast1$yhat_lower[nrow(forecast1)]), 
-            label = paste0("L: ", round(forecast1$yhat_lower[nrow(forecast1)], 0)),
+            label = paste0("L: ", round(forecast1$yhat_lower[nrow(forecast1)], -4)),
             check_overlap = T, size = 4, hjust = 1) +
   geom_text(x = max(forecast1$ds) - 0.05*diff(range(forecast1$ds)), 
             y = log10(forecast1$yhat_upper[nrow(forecast1)]), 
-            label = paste0("U: ", round(forecast1$yhat_upper[nrow(forecast1)], 0)),
+            label = paste0("U: ", round(forecast1$yhat_upper[nrow(forecast1)], -4)),
             check_overlap = T, size = 4, hjust = 1) +
   annotation_logticks(sides = "l") +
   theme_gray(base_size = 14)
@@ -135,15 +135,15 @@ p2 <- plot(m2, forecast2) +
   ylab("Predicted number of ACTIVE USERS") +
   geom_text(x = max(forecast2$ds) - 0.05*diff(range(forecast2$ds)), 
             y = log10(forecast2$yhat[nrow(forecast2)]), 
-            label = paste0("M: ", round(forecast2$yhat[nrow(forecast2)], 0)),
+            label = paste0("M: ", round(forecast2$yhat[nrow(forecast2)], -4)),
             check_overlap = T, size = 4, hjust = 1, fontface = "bold") +
   geom_text(x = max(forecast2$ds) - 0.05*diff(range(forecast2$ds)), 
             y = log10(forecast2$yhat_lower[nrow(forecast2)]), 
-            label = paste0("L: ", round(forecast4$yhat_lower[nrow(forecast2)], 0)),
+            label = paste0("L: ", round(forecast2$yhat_lower[nrow(forecast2)], -4)),
             check_overlap = T, size = 4, hjust = 1) +
   geom_text(x = max(forecast2$ds) - 0.05*diff(range(forecast2$ds)), 
             y = log10(forecast2$yhat_upper[nrow(forecast2)]), 
-            label = paste0("U: ", round(forecast2$yhat_upper[nrow(forecast2)], 0)),
+            label = paste0("U: ", round(forecast2$yhat_upper[nrow(forecast2)], -4)),
             check_overlap = T, size = 4, hjust = 1) +
   annotation_logticks(sides = "l") +
   theme_gray(base_size = 14)
