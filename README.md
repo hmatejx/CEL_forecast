@@ -39,7 +39,7 @@ For the time being I am therefore toying with data-driven ML/black-box approache
 
 So, I figured, that the current approach, while admittedly squarely on the side of toying, cannot be "too wrong" ;) 
 
-The cross-validation studies that I performed have shown that the prediction horizon for most quantities is at most two weeks. Nevertheless I am predicting the median, 90% lower, and 90% upper limit on all relevant quantities until the end of year 2021 :D
+The cross-validation studies that I have performed have shown that the prediction horizon for most quantities is at most two weeks. Nevertheless I am predicting the median, 90% lower, and 90% upper limit on all relevant quantities until the end of year 2021 :D
 
 ## Approach
 
