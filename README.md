@@ -25,7 +25,7 @@ Currently, approximately 53% of the total amount of CEL token is deposited in me
 
 Of course, at the same time as CEL is being concentrated in customer wallets, long-time holders of CEL and short-time speculators are selling parts of their CEL to secure profits, which results in a quasi equilibrium. Over the time span of two years an interesting empirical relationship between the price of CEL in USD and the amount of CEL outside per customer has emerged.
 
-![](img\correlation.png)
+![](img/correlation.png)
 
 At time of writing the price of CEL is hovering around 7 USD. The current value of CEL outside / customer is about 50. It is not unforeseeable that at the end of the year 2021, there may only be ~ 10 CEL / customer available outside on the exchanges, with obvious implications for the price.
 
@@ -55,7 +55,7 @@ I publish the predictions on my [Twitter profile](https://twitter.com/hmatejx).
 
 An example prediction obtained on May 29th:
 
-![](C:\Devel\CEL_forecast\img\example_prediction.png)
+![](img/example_prediction.png)
 
 Note that the upper right chart showing the correlation of CEL price and CEL_per_user in log-log scale indicates a breaking of the power law that was valid up to CEL_per_user = 150. In remains to be seen if a large upwards correction in price will restore the historical power law relationship, or if there is indeed a new dynamic forming with a different power law exponent.
 
