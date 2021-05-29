@@ -45,9 +45,9 @@ The cross-validation studies that I performed have shown that the prediction hor
 
 I regularly (once per week / two weeks...) take CEL price data from [CMC](https://coinmarketcap.com/currencies/celsius/historical-data/) and available network growth data from [The Financer](https://www.thefinancer.org/?page=coin&id=celsius-degree-token). Those data are then merged and published in the [CEL.xlsx](CEL.xlsx) Excel file (apologies for the format, but quick & dirty does the job here).
 
-If one is fluent in [R](https://www.r-project.org/), then the modeling approach is also pretty straightforward to follow in the [CEL.R](CEL.R) file (I did use a lot of [dplyr](https://dplyr.tidyverse.org/), but that was mainly just to practice).
+If one is fluent in [R](https://www.r-project.org/), then the modeling approach is also pretty straightforward to follow in the [CEL.R](CEL.R) file (I did use [dplyr](https://dplyr.tidyverse.org/) a lot, but that was mainly just to practice).
 
-The modeling insight, that is perhaps relevant to mention, is that all quantities were modeled in log-scale. The mere fact that that most quantities go over several orders of magnitude during the course of time should already be a big hint that a linear approach is wrong here. Moreover, a linear model is not constrained in the domain, and values can easily get negative. A log-scale fixes that as well. Nevertheless, Prophet was never meant to include transformations of the observed quantities. Therefore, when forecasting, back-transformations of all related quantities must be done manually.
+The modeling insight, that is perhaps relevant to mention, is that all quantities were modeled in log-scale. The mere fact that that most quantities go over several orders of magnitude during the course of time should already be a big hint that a linear approach is wrong here. Moreover, a linear model is not constrained in the domain, and values can easily get negative. Log-scale fixes that as well. Nevertheless, Prophet was never meant to include transformations of the observed quantities. Therefore, when forecasting, back-transformations of all related quantities must be done manually.
 
 I publish the predictions on my [Twitter profile](https://twitter.com/hmatejx).
 
