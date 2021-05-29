@@ -3,7 +3,7 @@ Predicting the [Celsius Network](https://celsius.network) growth and the [CEL to
 
 ## Short intro to the Celsius Network
 
-The Celsius Network is a unique crypto "bank" of the future, offering highly secure custodianship, lending, and borrowing services with market-leading high yields on deposited crypto assets , low rates on borrowed assets, and sharing of up to 80% of the revenue with the community of its members. 
+The Celsius Network is a unique crypto "bank" of the future, offering highly secure custodianship, lending, and borrowing services with market-leading high yields on deposited crypto assets, low rates on borrowed assets, and sharing of up to 80% of the revenue with the community of its members. 
 
 The network has grown exponentially in the last year. Currently (end May 2021), it boasts:
 
