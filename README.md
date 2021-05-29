@@ -21,7 +21,7 @@ The CEL token is the utility token (ERC20) of the Celsius Network. Holding a suf
 
 The rewards are paid weekly (each Monday). The CEL that is needed to pay back the reward is purchased by Celsius Network on public exchanges at market prices. Currently, 62.5% of Celsius Network users have opted in to receive the weekly rewards in CEL. This weekly buying of CEL to cover the rewards results in an upward pressure on the price of CEL as the demand is continuously increasing. Simultaneously, the amount of CEL that is available on the public exchanges is continuously diminishing.
 
-Currently, approximately 53% of the total amount of CEL token is deposited in member wallets, and only about 6% of all CEL is available outside of the Celsius Network on exchanges. An rough order-of-magnitude calculation reveals that each week about 5% of the remaining CEL outside is being bought to pay the rewards. 
+Currently, approximately 53% of the total amount of CEL token is deposited in member wallets, and only about 6% of all CEL is available outside of the Celsius Network on exchanges. A rough order-of-magnitude calculation reveals that each week about 5% of the remaining CEL outside is being bought to pay the rewards. 
 
 Of course, at the same time as CEL is being concentrated in customer wallets, long-time holders of CEL and short-time speculators are selling parts of their CEL to secure profits, which results in a quasi equilibrium. Over the time span of two years an interesting empirical relationship between the price of CEL in USD and the amount of CEL outside per customer has emerged.
 
