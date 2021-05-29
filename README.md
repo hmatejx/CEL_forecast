@@ -31,7 +31,7 @@ At time of writing the price of CEL is hovering around 7 USD. The current value 
 
 ## Predicting the CEL future
 
-The above description of the network and it's mechanisms certainly seem lend themselves nicely to a mechanistic description that could be captured by a dynamic model of its underlying quantities, perhaps requiring only the above empirical relationship as a kind of a link function.
+The above description of the network and it's mechanisms certainly seem to lend themselves nicely to a mechanistic description that could be captured by a dynamic model of its underlying quantities, perhaps requiring only the above empirical relationship as a kind of a link function.
 
 Nevertheless, I am missing some key time-series data, i.e. the assets under management, weekly CEL buy-back (only the total change of CEL in customer wallets is available which includes private inbound and outbound transactions).
 
