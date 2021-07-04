@@ -13,6 +13,7 @@ cel$DATE <- as.Date(as.POSIXct(cel$DATE * (24*60*60),
                                origin = "1899-12-30", 
                                tz = "GMT"))
 
+cutoff <- as.Date("2021-06-01")
 
 # convert to long format
 cel %>% mutate(CEL_per_USER := OUTSIDE / USERS,
@@ -24,8 +25,8 @@ cel %>% mutate(CEL_per_USER := OUTSIDE / USERS,
 # plot the CEL outside per user
 # outside = circulating supply - under celsius management - in app
 cel %>% filter(name %in% c("CEL_per_ACTIVE", "CEL_per_USER")) %>%
-  ggplot(aes(x = DATE, y = value, col = name)) + 
-  geom_line(size = 1.5) + 
+  ggplot(aes(x = DATE, y = value, col = name)) +
+  geom_line(size = 1.5) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x, n = 4),
                 labels = trans_format("log10", scales::math_format(10^.x))) +
   annotation_logticks(sides = "l") +
@@ -33,37 +34,82 @@ cel %>% filter(name %in% c("CEL_per_ACTIVE", "CEL_per_USER")) %>%
 
 
 # Prophet models
-# prepare data frames
+# prepare training data frames
 cel %>%
   filter(name == "USERS") %>%
+  filter(DATE < cutoff) %>%
   select(-name) %>% 
   rename(ds := DATE, y := value) %>%
   mutate(y := log(y)) -> df1
 cel %>%
   filter(name == "ACTIVE") %>%
+  filter(DATE < cutoff) %>%  
   select(-name) %>% 
   rename(ds := DATE, y := value) %>%
   mutate(y := log(y)) -> df2
 cel %>%
   filter(name == "OUTSIDE") %>%
+  filter(DATE < cutoff) %>%  
   select(-name) %>% 
   rename(ds := DATE, y := value) %>% 
   mutate(y := log(y)) -> df3
 cel %>%
   filter(name == "Price") %>%
+  filter(DATE < cutoff) %>%  
   select(-name) %>% 
   rename(ds := DATE, y := value) %>% 
   mutate(y := log(y)) -> df4
 cel %>%
   filter(name == "CEL_per_ACTIVE") %>%
+  filter(DATE < cutoff) %>%  
   select(-name) %>% 
   rename(ds := DATE, y := value) %>% 
   mutate(y := log(y)) -> df5
 cel %>%
   filter(name == "CEL_per_USER") %>%
+  filter(DATE < cutoff) %>%  
   select(-name) %>% 
   rename(ds := DATE, y := value) %>% 
   mutate(y := log(y)) -> df6
+
+# prepare validation data frames
+cel %>%
+  filter(name == "USERS") %>%
+  filter(DATE >= cutoff) %>%
+  select(-name) %>%
+  rename(ds := DATE, y := value) %>%
+  mutate(ds := as.POSIXct.Date(ds)) -> df1.val
+cel %>%
+  filter(name == "ACTIVE") %>%
+  filter(DATE >= cutoff) %>%  
+  select(-name) %>% 
+  rename(ds := DATE, y := value)%>%
+  mutate(ds := as.POSIXct.Date(ds)) -> df2.val
+cel %>%
+  filter(name == "OUTSIDE") %>%
+  filter(DATE >= cutoff) %>%  
+  select(-name) %>% 
+  rename(ds := DATE, y := value) %>%
+  mutate(ds := as.POSIXct.Date(ds)) -> df3.val
+cel %>%
+  filter(name == "Price") %>%
+  filter(DATE >= cutoff) %>%  
+  select(-name) %>% 
+  rename(ds := DATE, y := value) %>%
+  mutate(ds := as.POSIXct.Date(ds)) -> df4.val
+cel %>%
+  filter(name == "CEL_per_ACTIVE") %>%
+  filter(DATE >= cutoff) %>%  
+  select(-name) %>% 
+  rename(ds := DATE, y := value) %>%
+  mutate(ds := as.POSIXct.Date(ds)) -> df5.val
+cel %>%
+  filter(name == "CEL_per_USER") %>%
+  filter(DATE >= cutoff) %>%  
+  select(-name) %>% 
+  rename(ds := DATE, y := value) %>%
+  mutate(ds := as.POSIXct.Date(ds)) -> df6.val
+
 # fit models & forecast
 horizon = as.numeric(as.Date("2021-12-31") - max(cel$DATE))
 CL <- 0.9
@@ -124,6 +170,7 @@ p1 <- plot(m1, forecast1) +
             label = paste0("U: ", round(forecast1$yhat_upper[nrow(forecast1)], -4)),
             check_overlap = T, size = 4, hjust = 1) +
   annotation_logticks(sides = "l") +
+  geom_point(aes(x = ds, y = y), data = df1.val, color = "red") +
   theme_gray(base_size = 14)
 
 # plot the forecast of active users
@@ -146,6 +193,7 @@ p2 <- plot(m2, forecast2) +
             label = paste0("U: ", round(forecast2$yhat_upper[nrow(forecast2)], -4)),
             check_overlap = T, size = 4, hjust = 1) +
   annotation_logticks(sides = "l") +
+  geom_point(aes(x = ds, y = y), data = df2.val, color = "red") +
   theme_gray(base_size = 14)
 
 # plot the forecast of CEL outside
@@ -155,6 +203,7 @@ p3 <- plot(m3, forecast3) +
   xlab("Date") +
   ylab("Predicted amount of CEL outside") +
   annotation_logticks(sides = "l") +
+  geom_point(aes(x = ds, y = y), data = df3.val, color = "red") +
   theme_gray(base_size = 14)
 
 # plot the forecast of CEL price
@@ -176,9 +225,10 @@ p4 <- plot(m4, forecast4) +
             y = log10(forecast4$yhat_upper[nrow(forecast4)]), 
             label = paste0("U: ", round(forecast4$yhat_upper[nrow(forecast4)], 1)),
             check_overlap = T, size = 4, hjust = 1) +
+  geom_point(aes(x = ds, y = y), data = df4.val, color = "red") +
   theme_gray(base_size = 14)
 
-# plot the forecast of CEL price
+# plot the forecast of CEL_per_ACTIVE
 p5 <- plot(m5, forecast5) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x, n = 4),
                 labels = trans_format("log10", scales::math_format(10^.x))) + 
@@ -197,9 +247,10 @@ p5 <- plot(m5, forecast5) +
             y = log10(forecast5$yhat_upper[nrow(forecast5)]), 
             label = paste0("U: ", round(forecast5$yhat_upper[nrow(forecast5)], 1)),
             check_overlap = T, size = 4, hjust = 1) +
+  geom_point(aes(x = ds, y = y), data = df5.val, color = "red") +
   theme_gray(base_size = 14)
 
-# plot the forecast of CEL price
+# plot the forecast of CEL_per_USER
 p6 <- plot(m6, forecast6) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x, n = 4),
                 labels = trans_format("log10", scales::math_format(10^.x))) + 
@@ -218,6 +269,7 @@ p6 <- plot(m6, forecast6) +
             label = paste0("U: ", round(forecast6$yhat_upper[nrow(forecast6)], 1)),
             check_overlap = T, size = 4, hjust = 1) +
   annotation_logticks(sides = "l") +
+  geom_point(aes(x = ds, y = y), data = df6.val, color = "red") +
   theme_gray(base_size = 14)
 
 # plot the forecast of CEL_per_USER
